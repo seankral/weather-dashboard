@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
+    <header>
+        <h1 class="header-text">Weather Dashboard</h1>
+    </header>
+    <main id="container" class="d-flex flex-row">
+        <div id="city-search-container" class="col-4 d-flex flex-column">
+            <h2 class="city-header">Search for a City:</h2>
+            <form class="city-form ">
+                <input type="text" id="form-input" />
+                <button type="submit" id="form-btn">Search</button>
+            </form>
+            <div id="saved-searches"></div>
+        </div>
+        <div id="city-search-results" class="col-8">
+            <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus officiis, neque consequuntur et sint, cum natus, quod tempore recusandae ab corporis consequatur deleniti modi praesentium! Rerum, ea? Facere, accusamus facilis.</h4>
+
+        </div>
+    </main>
 
 
     <script src="assets/js/script.js"></script>
 
 </body>
+
 </html>
