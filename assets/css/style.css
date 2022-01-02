@@ -26,15 +26,20 @@ header {
 
 #city-search-container {
     width: fit-content;
+    margin: 5px;
 }
 
 .city-header {
     font-weight: bold;
 }
 
+#city-form {
+    border-bottom: 2px solid #555454c4;
+}
+
 #form-input {
     width: 100%;
-    height: 30px;
+    height: 40px;
     background-color: #3059dd63;
     border-radius: 5px;
 }
@@ -49,9 +54,10 @@ header {
     background-image: linear-gradient(to right, #5428bb, #0c8be0);
     color: #ffffff;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 
-#city-search-results {
+#current-weather {
     border: 2px solid #282828;
     margin-right: 10px;
 }
