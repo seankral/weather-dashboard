@@ -61,3 +61,14 @@ header {
     border: 2px solid #282828;
     margin-right: 10px;
 }
+
+.currentUl {
+    list-style: none;
+
+}
+
+.currentLi {
+    padding: 5px;
+    font-weight: 600;
+}
+    
