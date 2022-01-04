@@ -2,20 +2,19 @@ var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#form-input");
 var currentWeatherEl = document.querySelector("#current-weather");
 
-var WeatherArrText = ["Temp: ", "Wind: ", "Humidity: ", "UV Index: "]
+var WeatherArrText = ["", "Temp: ", "Wind: ", "Humidity: ", "UV Index: "]
 var currentWeatherArr = [];
+var forecastWeatherArr = [];
 
 var forecastDates = []
 
 var currentDay = moment().format('M/D/YYYY')
+var dates = moment().format('M/D/YYYY')
 
-//for (var i = 0; i < 4; i++ ) {
-    //var dates = moment().add(1, 'days')
-    //forecastDates.push(dates)
-//}
-
-//console.log(forecastDates)
-
+for (var i = 0; i < 5; i++) {
+    dates = moment().add(i, 'd').format('M/D/YYYY')
+    forecastDates.push(dates)
+}
 
 var formSubmitHandler = function (e) {
     e.preventDefault();
@@ -71,10 +70,24 @@ var getCurrentWeather = function (lat, lon, city) {
         if (response.ok) {
             response.json().then(function (data) {
                 console.log(data)
-                // push needed data to empty array
+                // set array to empty
                 currentWeatherArr = [];
-                currentWeatherArr.push(data.current.temp, data.current.wind_speed + " MPH", data.current.humidity + " %", data.current.uvi)
-                displayWeather();
+                // push current weather data to array
+                currentWeatherArr.push(data.current.weather[0].icon, data.current.temp + " ℉", data.current.wind_speed + " MPH", data.current.humidity + " %", data.current.uvi)
+                // set array to empty
+                forecastWeatherArr = [];
+                // store forecast data inside an object
+                for (var i = 0; i < 5; i++) {
+                    var forecastData = {
+                        icon: data.daily[i].weather[0].icon,
+                        temp: data.daily[i].temp.day + " ℉",
+                        wind: data.daily[i].wind_speed + " MPH",
+                        humidity: data.daily[i].humidity + " %"
+                    }
+                    // push object to array
+                    forecastWeatherArr.push(forecastData)
+                }
+                displayWeatherCurrent();
             });
         }
         else {
@@ -86,21 +99,27 @@ var getCurrentWeather = function (lat, lon, city) {
             alert("Unable to connect to OpenWeatherMap")
         });
 
-        // display name of city returned from api call
-        var cityNameEl = document.createElement("h2");
-        cityNameEl.className = "city-header";
-        cityNameEl.textContent = city
-        currentWeatherEl.appendChild(cityNameEl);
+    // display name of city returned from api call
+    var cityNameEl = document.createElement("h2");
+    cityNameEl.className = "city-header";
+    cityNameEl.textContent = city + " " + forecastDates[0]
+    currentWeatherEl.appendChild(cityNameEl);
 };
 
-var displayWeather = function () {
-    console.log(currentWeatherArr)
+var displayWeatherCurrent = function () {
 
+    // create ul list element
     var currentUl = document.createElement("ul");
     currentUl.className = "currentUl"
+    // append ul to static container
     currentWeatherEl.appendChild(currentUl);
 
-    for (var i = 0; i < currentWeatherArr.length; i++) {
+    // create url to display icon
+    var currentIcon = document.createElement("img")
+    currentIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + currentWeatherArr[0] + ".png")
+    currentUl.appendChild(currentIcon)
+
+    for (var i = 1; i < currentWeatherArr.length; i++) {
 
         // create list elements
         var currentLi = document.createElement("li")
@@ -108,6 +127,14 @@ var displayWeather = function () {
         currentLi.textContent = WeatherArrText[i] + currentWeatherArr[i]
         currentUl.appendChild(currentLi);
     };
+
+    displayWeatherForecast();
 }
+
+var displayWeatherForecast = function () {
+    console.log(forecastWeatherArr)
+
+
+};
 
 cityFormEl.addEventListener("submit", formSubmitHandler)
