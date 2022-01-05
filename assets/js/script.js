@@ -173,12 +173,13 @@ var displayWeatherForecast = function () {
 };
 
 var saveCities = function (city) {
-    
+
 
     if (localStorage.getItem('searches') === null) {
         var searchesObj = {
             city: city
         };
+        console.log(searches)
         searches.push(searchesObj)
         localStorage.setItem("searches", JSON.stringify(searches))
     }
@@ -199,9 +200,11 @@ var saveCities = function (city) {
 var displaySearches = function () {
     savedSearches.innerHTML = "";
 
-    searches = localStorage.getItem("searches");
+    if (localStorage.getItem("searches")) {
 
-    searches = JSON.parse(searches);
+        searches = JSON.parse(localStorage.getItem("searches"))
+        
+    }
 
     if (searches !== null) {
         for (var i = 0; i < searches.length; i++) {
