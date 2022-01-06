@@ -17,3 +17,7 @@
 
 ![screenshot of website](./assets/images/challenge-6-readme-2.PNG)
 ![screenshot of website](./assets/images/challenge-6-readme-1.PNG)
+
+## Deployed link
+
+https://seankral.github.io/weather-dashboard/
